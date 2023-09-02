@@ -67,7 +67,7 @@ if let Word::FourLetter(a, b, c, d) = word_one {
 }
 ```
 
-**Reading Text from a File**
+`Reading Text from a File`
 
 ```rs
 use std::fs;
@@ -77,7 +77,7 @@ let text: String = fs::read_to_string(filepath).expect("Unable to read file.");
 ```
 
 
-Command Line Arguments**
+`Command Line Arguments`
 
 ```rs
 use std::env;
@@ -87,7 +87,7 @@ let args: Vec<String> = env::args().collect();
 // CLI args saved to Vector;
 ```
 
-**Creating and Modifying Arrays / Tuples, Using Vectors**
+`Creating and Modifying Arrays / Tuples, Using Vectors`
 
 ```rs
 let immutable_array: [i32; 5] = [1, 2, 3, 4, 5];
