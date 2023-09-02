@@ -6,7 +6,7 @@ https://github.com/L4852/hello-world-rust
 ## Resource ##
 https://doc.rust-lang.org/stable/book/
 
-### Current Concept ###
+### Current Concepts ###
 
 `Creating and Using Structs and Enums, Using impl`
 
@@ -67,7 +67,7 @@ if let Word::FourLetter(a, b, c, d) = word_one {
 }
 ```
 
-`Reading Text from a File`
+**Reading Text from a File**
 
 ```rs
 use std::fs;
@@ -77,7 +77,7 @@ let text: String = fs::read_to_string(filepath).expect("Unable to read file.");
 ```
 
 
-`Command Line Arguments`
+Command Line Arguments**
 
 ```rs
 use std::env;
