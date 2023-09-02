@@ -1,36 +1,90 @@
-use std::io;
-use std::cmp::Ordering;
+use rand::Error;
 use rand::Rng;
-
+use core::fmt;
+use std::cmp::Ordering;
+use std::io;
+use std::fs;
 
 fn hello_world() {
     println!("Hello, world!");
 }
 
 fn guess_value() {
-    let mut user_input = String::new();
+    let mut user_input: String = String::new();
 
-    let random_num = rand::thread_rng().gen_range(1..100);
+    let random_num: i32 = rand::thread_rng().gen_range(1..100);
 
-    println!("Please enter a guess.");
-    io::stdin()
-        .read_line(&mut user_input)
-        .expect("Could not read input!");
+    loop {
+        println!("Please enter a guess.");
+        io::stdin()
+            .read_line(&mut user_input)
+            .expect("Could not read input!");
 
-    println!("This is your input! -> {user_input}");
+        println!("This is your input! -> {user_input}");
 
-    let user_input: i32 = user_input.trim().parse().expect("Could not parse input.");
+        let user_input: i32 = match user_input.trim().parse() {
+            Ok(user_input) => user_input,
+            Err(_) => continue,
+        };
 
-    match user_input.cmp(&random_num){
-        Ordering::Less => println!("Your guess is too low."),
-        Ordering::Equal => println!("Your guess is correct!"),
-        Ordering::Greater => println!("Your guess is too high.")
+        match user_input.cmp(&random_num) {
+            Ordering::Less => println!("Your guess is too low."),
+            Ordering::Equal => {
+                println!("Your guess is correct!");
+                break;
+            }
+            Ordering::Greater => println!("Your guess is too high."),
+        }
+        println!("Your guess was incorrect!");
     }
-    
+}
 
+fn original_owner() {
+    let b_string: String = String::from("= ownership =");
+
+    transfer_ownership(b_string); // Ownership transferred to transfer_ownership function, no longer valid here;
+
+    // println!("Old var (ownership): {b_string}"); Does not work;
+
+    let c_string: String = String::from("= ownership 2 =");
+
+    let d_string: String = transfer_return(c_string);
+
+    // println!("{c_string}"); Does not work; (moved)
+    println!("{d_string}"); // Works because value assigned to new returned variable;
+}
+
+fn transfer_ownership(string: String) {
+    println!("String value: {string}");
+}
+
+fn transfer_return(string: String) -> String {
+    println!("String value: {string}");
+
+    string
+}
+
+fn modify_borrowed(string: &mut String) -> usize {
+    let string_length: usize = string.len();
+    string.push_str(" -> new text");
+
+    string_length
+}
+
+fn original_borrow() {
+    let mut a_string: String = String::from("not fixed");
+    let length: usize = modify_borrowed(&mut a_string);
+
+    println!("{a_string}, Length: {length}");
+
+    println!("Old variable (borrow): {a_string}");
 }
 
 fn main() {
+    
+
     // hello_world();
-    guess_value();    
+    // guess_value();
+    // original_borrow();
+    // original_owner();
 }
