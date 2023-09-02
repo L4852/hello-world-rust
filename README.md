@@ -27,7 +27,7 @@ var.trim().parse().expect("");
 
 // Equivalent:
 
-var.trim(); // Removes whitespaces
+var.trim(); // Removes whitespaces and return characters
 var.parse(); // Converts string to type specified
 var.expect(""); // Handle error
 
