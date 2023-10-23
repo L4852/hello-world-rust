@@ -1,6 +1,4 @@
-use rand::Error;
 use rand::Rng;
-use core::fmt;
 use std::cmp::Ordering;
 use std::io;
 use std::fs;
@@ -80,11 +78,37 @@ fn original_borrow() {
     println!("Old variable (borrow): {a_string}");
 }
 
-fn main() {
-    
+fn enum_test() {
+    enum Cookie {
+        HasFruit(String),
+        HasChocolate
+    }
 
+    let my_cookie: Cookie = Cookie::HasFruit(String::from("orange"));
+
+    if let Cookie::HasChocolate = my_cookie {
+        println!("Your other cookie is a chocolate cookie.");
+    }
+    else if let Cookie::HasFruit(fruit) = my_cookie {
+        if fruit.as_str() == "Strawberry" {
+            println!("Your cookie is a strawberry cookie.");
+        }
+        else {
+            println!("Your cookie is not a strawberry cookie. It is a {} cookie.", fruit);
+        }
+    }
+}
+
+fn file_read_test() {
+    let contents: String = fs::read_to_string("src/test.txt").expect("Could not read file.");
+    println!("{contents}");
+}
+
+fn main() {
     // hello_world();
     // guess_value();
     // original_borrow();
     // original_owner();
+    // enum_test();
+    // file_read_test();   
 }
